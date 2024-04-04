@@ -1,3 +1,4 @@
+//Hannah Bernthal
 import java.util.ArrayList;
 
 /**
@@ -21,25 +22,28 @@ public class BST {
      * Sets up a binary search tree
      * with some default values
      */
-//    public void setupTestData() {
-//        this.root = new BSTNode(10);
-//        this.root.setLeft(new BSTNode(5));
-//        this.root.setRight(new BSTNode((15)));
-//        this.root.getLeft().setLeft(new BSTNode(3));
-//        this.root.getLeft().setRight(new BSTNode(9));
-//    }
 
     public void setupTestData() {
-        this.root = new BSTNode(8);
-        this.root.setLeft(new BSTNode(3));
-        this.root.setRight(new BSTNode((10)));
-        this.root.getLeft().setLeft(new BSTNode(1));
-        this.root.getLeft().setRight(new BSTNode(6));
-        this.root.getLeft().getRight().setLeft(new BSTNode(4));
-        this.root.getLeft().getRight().setRight(new BSTNode(7));
-        this.root.getRight().setRight(new BSTNode(14));
-        this.root.getRight().getRight().setLeft((new BSTNode(13)));
+        this.root = new BSTNode(10);
+        this.root.setLeft(new BSTNode(5));
+        this.root.setRight(new BSTNode((15)));
+        this.root.getLeft().setLeft(new BSTNode(3));
+        this.root.getLeft().setRight(new BSTNode(9));
     }
+
+    // Use this for a different dataset
+
+//    public void setupTestData() {
+//        this.root = new BSTNode(8);
+//        this.root.setLeft(new BSTNode(3));
+//        this.root.setRight(new BSTNode((10)));
+//        this.root.getLeft().setLeft(new BSTNode(1));
+//        this.root.getLeft().setRight(new BSTNode(6));
+//        this.root.getLeft().getRight().setLeft(new BSTNode(4));
+//        this.root.getLeft().getRight().setRight(new BSTNode(7));
+//        this.root.getRight().setRight(new BSTNode(14));
+//        this.root.getRight().getRight().setLeft((new BSTNode(13)));
+//    }
 
     /**
      * Prints the provided ArrayList of nodes
@@ -80,11 +84,14 @@ public class BST {
     /**
      * @return ArrayList of BSTNodes in inorder
      */
+
+    // Calls the helper method for inorder
     public ArrayList<BSTNode> getInorder() {
         ArrayList<BSTNode> result = new ArrayList<BSTNode>();
         return getInorderHelper(result, root);
     }
 
+    // Goes through recursively to add the nodes in the order of left, root, right
     public ArrayList<BSTNode> getInorderHelper(ArrayList<BSTNode> result, BSTNode currentNode) {
         if (currentNode == null) {
            return result;
@@ -99,11 +106,13 @@ public class BST {
      * @return ArrayList of BSTNodes in preorder
      */
 
+    // Calls the helper method for preorder
     public ArrayList<BSTNode> getPreorder() {
         ArrayList<BSTNode> result = new ArrayList<BSTNode>();
         return getPreorderHelper(result, root);
     }
 
+    // Goes through recursively to add the nodes in the order of root, left, right
     public ArrayList<BSTNode> getPreorderHelper(ArrayList<BSTNode> result, BSTNode currentNode) {
         if (currentNode == null) {
             return result;
@@ -117,11 +126,14 @@ public class BST {
     /**
      * @return ArrayList of BSTNodes in postorder
      */
+
+    // Calls the helper method for postorder
     public ArrayList<BSTNode> getPostorder() {
         ArrayList<BSTNode> result = new ArrayList<BSTNode>();
         return getPostorderHelper(result, root);
     }
 
+    // Goes through recursively to add the nodes in the order of left, right, root
     public ArrayList<BSTNode> getPostorderHelper(ArrayList<BSTNode> result, BSTNode currentNode) {
         if (currentNode == null) {
             return result;
@@ -142,6 +154,10 @@ public class BST {
         root = insertHelper(val, root);
     }
 
+    // Uses recursion to insert a value by
+    // 1) narrowing it down between left and right
+    // 2) if it's supposed to be right but its null, add it there
+    // 3) same thing for the left
     public BSTNode insertHelper(int val, BSTNode currentNode) {
         if (currentNode == null) {
             return new BSTNode(val);
