@@ -21,12 +21,24 @@ public class BST {
      * Sets up a binary search tree
      * with some default values
      */
+//    public void setupTestData() {
+//        this.root = new BSTNode(10);
+//        this.root.setLeft(new BSTNode(5));
+//        this.root.setRight(new BSTNode((15)));
+//        this.root.getLeft().setLeft(new BSTNode(3));
+//        this.root.getLeft().setRight(new BSTNode(9));
+//    }
+
     public void setupTestData() {
-        this.root = new BSTNode(10);
-        this.root.setLeft(new BSTNode(5));
-        this.root.setRight(new BSTNode((15)));
-        this.root.getLeft().setLeft(new BSTNode(3));
-        this.root.getLeft().setRight(new BSTNode(9));
+        this.root = new BSTNode(8);
+        this.root.setLeft(new BSTNode(3));
+        this.root.setRight(new BSTNode((10)));
+        this.root.getLeft().setLeft(new BSTNode(1));
+        this.root.getLeft().setRight(new BSTNode(6));
+        this.root.getLeft().getRight().setLeft(new BSTNode(4));
+        this.root.getLeft().getRight().setRight(new BSTNode(7));
+        this.root.getRight().setRight(new BSTNode(14));
+        this.root.getRight().getRight().setLeft((new BSTNode(13)));
     }
 
     /**
@@ -47,32 +59,77 @@ public class BST {
      * @return true if val is in the tree, false otherwise
      */
     public boolean search(int val) {
-        // TODO: Complete the search function
-        return false;
+        return searchTree(root, val);
+    }
+
+    public boolean searchTree(BSTNode root, int val) {
+        if (root == null) {
+            return false;
+        }
+        if (val == root.getVal()) {
+            return true;
+        }
+        if (val < root.getVal()) {
+            return searchTree(root.getLeft() ,val);
+        }
+        else {
+            return searchTree(root.getRight(), val);
+        }
     }
 
     /**
      * @return ArrayList of BSTNodes in inorder
      */
     public ArrayList<BSTNode> getInorder() {
-        // TODO: Complete inorder traversal
-        return null;
+        ArrayList<BSTNode> result = new ArrayList<BSTNode>();
+        return getInorderHelper(result, root);
+    }
+
+    public ArrayList<BSTNode> getInorderHelper(ArrayList<BSTNode> result, BSTNode currentNode) {
+        if (currentNode == null) {
+           return result;
+        }
+        getInorderHelper(result, currentNode.getLeft());
+        result.add(currentNode);
+        getInorderHelper(result, currentNode.getRight());
+        return result;
     }
 
     /**
      * @return ArrayList of BSTNodes in preorder
      */
+
     public ArrayList<BSTNode> getPreorder() {
-        // TODO: Complete preorder traversal
-        return null;
+        ArrayList<BSTNode> result = new ArrayList<BSTNode>();
+        return getPreorderHelper(result, root);
+    }
+
+    public ArrayList<BSTNode> getPreorderHelper(ArrayList<BSTNode> result, BSTNode currentNode) {
+        if (currentNode == null) {
+            return result;
+        }
+        result.add(currentNode);
+        getPreorderHelper(result, currentNode.getLeft());
+        getPreorderHelper(result, currentNode.getRight());
+        return result;
     }
 
     /**
      * @return ArrayList of BSTNodes in postorder
      */
     public ArrayList<BSTNode> getPostorder() {
-        // TODO: Complete postorder traversal
-        return null;
+        ArrayList<BSTNode> result = new ArrayList<BSTNode>();
+        return getPostorderHelper(result, root);
+    }
+
+    public ArrayList<BSTNode> getPostorderHelper(ArrayList<BSTNode> result, BSTNode currentNode) {
+        if (currentNode == null) {
+            return result;
+        }
+        getPostorderHelper(result, currentNode.getLeft());
+        getPostorderHelper(result, currentNode.getRight());
+        result.add(currentNode);
+        return result;
     }
 
     /**
@@ -82,7 +139,20 @@ public class BST {
      * @param val The value ot insert
      */
     public void insert(int val) {
-        // TODO: Complete insert
+        root = insertHelper(val, root);
+    }
+
+    public BSTNode insertHelper(int val, BSTNode currentNode) {
+        if (currentNode == null) {
+            return new BSTNode(val);
+        }
+        if (currentNode.getVal() < val) {
+            currentNode.setRight(insertHelper(val, currentNode.getRight()));
+        }
+        else if (currentNode.getVal() > val) {
+            currentNode.setLeft(insertHelper(val, currentNode.getLeft()));
+        }
+        return currentNode;
     }
 
     /**
